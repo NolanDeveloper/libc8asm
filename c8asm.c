@@ -295,22 +295,22 @@ asm_emit_sne_vx_vy(uint_fast16_t x, uint_fast16_t y) {
 }
 
 extern enum AsmError
-asm_emit_ld_iAddri(uint_fast16_t addr) {
+asm_emit_ld_i_addr(uint_fast16_t addr) {
     return emit_hnnni(0xA, addr);
 }
 
 extern enum AsmError
-asm_emit_ld_iAddrl(char *label) {
+asm_emit_ld_i_label(char *label) {
     return emit_hnnnl(0xA, label);
 }
 
 extern enum AsmError
-asm_emit_jp_v0Addri(uint_fast16_t addr) {
+asm_emit_jp_v0_addr(uint_fast16_t addr) {
     return emit_hnnni(0xB, addr);
 }
 
 extern enum AsmError
-asm_emit_jp_v0Addrl(char *label) {
+asm_emit_jp_v0_label(char *label) {
     return emit_hnnnl(0xB, label);
 }
 
@@ -355,26 +355,26 @@ asm_emit_ld_st_vx(uint_fast16_t x) {
 }
 
 extern enum AsmError
-asm_emit_add_iVx(uint_fast16_t x) {
+asm_emit_add_i_vx(uint_fast16_t x) {
     return emit_hxkk(0xF, x, 0x1E);
 }
 
 extern enum AsmError
-asm_emit_ld_fVx(uint_fast16_t x) {
+asm_emit_ld_f_vx(uint_fast16_t x) {
     return emit_hxkk(0xF, x, 0x29);
 }
 
 extern enum AsmError
-asm_emit_ld_bVx(uint_fast16_t x) {
+asm_emit_ld_b_vx(uint_fast16_t x) {
     return emit_hxkk(0xF, x, 0x33);
 }
 
 extern enum AsmError
-asm_emit_ld_iIVx(uint_fast16_t x) {
+ asm_emit_ld_ii_vx(uint_fast16_t x) {
     return emit_hxkk(0xF, x, 0x55);
 }
 
 extern enum AsmError
-asm_emit_ld_vx_iI(uint_fast16_t x) {
+asm_emit_ld_vx_ii(uint_fast16_t x) {
     return emit_hxkk(0xF, x, 0x65);
 }

@@ -78,5 +78,5 @@ extern enum AsmError asm_emit_ld_st_vx(uint_fast16_t x);
 extern enum AsmError asm_emit_add_i_vx(uint_fast16_t x);
 extern enum AsmError asm_emit_ld_f_vx(uint_fast16_t x);
 extern enum AsmError asm_emit_ld_b_vx(uint_fast16_t x);
-extern enum AsmError asm_emit_ld_i_i_vx(uint_fast16_t x);
-extern enum AsmError asm_emit_ld_vx_i_i(uint_fast16_t x);
+extern enum AsmError asm_emit_ld_ii_vx(uint_fast16_t x);
+extern enum AsmError asm_emit_ld_vx_ii(uint_fast16_t x);
