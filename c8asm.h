@@ -18,7 +18,7 @@ enum AsmError {
 /* Before calling any other function from this header first call this. */
 extern void asm_init(void);
 
-/* Label can be used before definition i.e. before it's location is specified.
+/* Label can be used before definition i.e. before its location is specified.
  * Such label is called undefined. This function allows to get number of such
  * labels.*/
 extern uint_fast16_t asm_get_number_of_undefined_labels(void);
