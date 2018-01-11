@@ -32,7 +32,7 @@ extern uint_fast16_t asm_get_instruction_pointer(void);
 /* Returns string description of error code. */
 extern const char *asm_error_string(enum AsmError e);
 
-/* Defines label, i.e. specifies address of the label. It's address can be calculated as
+/* Defines label, i.e. specifies address of the label. Its address can be calculated as
  * MIN_ADDRESS + asm_get_instruction_pointer(). */
 extern enum AsmError asm_emit_label(char *label);
 
