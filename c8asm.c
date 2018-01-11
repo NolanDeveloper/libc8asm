@@ -89,10 +89,6 @@ asm_init(void) {
     instruction_pointer = 0;
     number_of_labels = 0;
     number_of_undefined_labels = 0;
-    /* Next is required for standard complience. `labels` will be filled with
-     * zeroes on launch hence label will have all bits set to zero but NULL can
-     * have different binary representation so we still have to manually assign
-     * NULL to each pointer. */
     for (size_t i = 0; i < TABLE_OF_LABELS_SIZE; ++i) {
         labels[i].label = NULL;
     }
