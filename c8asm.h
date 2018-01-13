@@ -10,10 +10,10 @@ enum AsmError {
     ASM_TOO_MANY_INSTRUCTIONS,
 };
 
-#define MIN_ADDRESS             0x200   /* Machine code starts at this address. */
-#define MAX_ADDRESS             0x1000  /* Size of address space. */
-#define MAX_LABELS              4096    /* Maximum number of labels that can be used. */
-#define BUFFER_SIZE             (MAX_ADDRESS - MIN_ADDRESS) /* Size of internal buffer. */
+#define ASM_MIN_ADDRESS     0x200   /* Machine code starts at this address. */
+#define ASM_MAX_ADDRESS     0x1000  /* Size of address space. */
+#define ASM_MAX_LABELS      4096    /* Maximum number of labels that can be used. */
+#define ASM_BUFFER_SIZE     (ASM_MAX_ADDRESS - ASM_MIN_ADDRESS) /* Size of internal buffer. */
 
 /* Before calling any other function from this header first call this. */
 extern void asm_init(void);
@@ -33,7 +33,7 @@ extern uint_fast16_t asm_get_instruction_pointer(void);
 extern const char *asm_error_string(enum AsmError e);
 
 /* Defines label, i.e. specifies address of the label. Its address can be calculated as
- * MIN_ADDRESS + asm_get_instruction_pointer(). */
+ * ASM_MIN_ADDRESS + asm_get_instruction_pointer(). */
 extern enum AsmError asm_emit_label(char *label);
 
 /* Puts SINGLE byte into memory as is. */

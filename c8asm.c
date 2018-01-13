@@ -13,7 +13,7 @@ string_hash(const char *str) {
     return hash;
 }
 
-#define TABLE_OF_LABELS_SIZE (MAX_LABELS * 5 / 4 + 1)
+#define TABLE_OF_LABELS_SIZE (ASM_MAX_LABELS * 5 / 4 + 1)
 struct LabelAddress {
     uint_fast32_t   hash;
     char            *label;
@@ -43,7 +43,7 @@ lookup_label(char *label) {
 
 static enum AsmError
 add_label(struct LabelAddress new_label_address) {
-    if (number_of_labels >= MAX_LABELS) {
+    if (number_of_labels >= ASM_MAX_LABELS) {
         return ASM_TOO_MANY_LABELS;
     }
     char *label = new_label_address.label;
@@ -59,7 +59,7 @@ add_label(struct LabelAddress new_label_address) {
     return ASM_OK;
 }
 
-static uint_least8_t machine_code[BUFFER_SIZE];
+static uint_least8_t machine_code[ASM_BUFFER_SIZE];
 static uint_fast16_t instruction_pointer;
 
 extern uint_least8_t *
@@ -100,7 +100,7 @@ asm_emit_label(char *label) {
     if (la) {
         if (!la->undefined) return ASM_SECOND_DEFINITION;
         /* First definition. Label was used before. */
-        uint_fast16_t address = MIN_ADDRESS + instruction_pointer;
+        uint_fast16_t address = ASM_MIN_ADDRESS + instruction_pointer;
         uint_fast16_t i, j = la->address;
         do {
             i = j;
@@ -114,7 +114,7 @@ asm_emit_label(char *label) {
     } else { /* First definition. Label was not used before. */
         enum AsmError e = add_label((struct LabelAddress) {
             .label     = label,
-            .address   = MIN_ADDRESS + instruction_pointer,
+            .address   = ASM_MIN_ADDRESS + instruction_pointer,
             .undefined = false,
         });
         if (ASM_OK != e) return e;
@@ -124,7 +124,7 @@ asm_emit_label(char *label) {
 
 static enum AsmError
 emit(uint_fast16_t instruction) {
-    if (BUFFER_SIZE <= instruction_pointer + 1) return ASM_TOO_MANY_INSTRUCTIONS;
+    if (ASM_BUFFER_SIZE <= instruction_pointer + 1) return ASM_TOO_MANY_INSTRUCTIONS;
     machine_code[instruction_pointer++] = (instruction >> 8u) & 0xff;
     machine_code[instruction_pointer++] = instruction & 0xff;
     return ASM_OK;
@@ -184,7 +184,7 @@ emit_hxyn(uint_fast16_t h, uint_fast16_t x, uint_fast16_t y, uint_fast16_t n) {
 
 extern enum AsmError
 asm_emit_data(uint_fast16_t data) {
-    if (BUFFER_SIZE < instruction_pointer) return ASM_TOO_MANY_INSTRUCTIONS;
+    if (ASM_BUFFER_SIZE < instruction_pointer) return ASM_TOO_MANY_INSTRUCTIONS;
     machine_code[instruction_pointer++] = data & 0xff;
     return ASM_OK;
 }
