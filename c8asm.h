@@ -34,7 +34,7 @@ extern const char *asm_error_string(enum AsmError e);
 
 /* Defines label, i.e. specifies address of the label. Its address can be calculated as
  * ASM_MIN_ADDRESS + asm_get_instruction_pointer(). */
-extern enum AsmError asm_emit_label(char *label);
+extern enum AsmError asm_emit_label(const char *label);
 
 /* Puts SINGLE byte into memory as is. */
 extern enum AsmError asm_emit_data(uint_fast16_t data);
@@ -44,9 +44,9 @@ extern enum AsmError asm_emit_data(uint_fast16_t data);
 extern enum AsmError asm_emit_cls(void);
 extern enum AsmError asm_emit_ret(void);
 extern enum AsmError asm_emit_jp_addr(uint_fast16_t addr);
-extern enum AsmError asm_emit_jp_label(char *label);
+extern enum AsmError asm_emit_jp_label(const char *label);
 extern enum AsmError asm_emit_call_addr(uint_fast16_t addr);
-extern enum AsmError asm_emit_call_label(char *label);
+extern enum AsmError asm_emit_call_label(const char *label);
 extern enum AsmError asm_emit_se_vx_byte(uint_fast16_t x, uint_fast16_t byte);
 extern enum AsmError asm_emit_sne_vx_byte(uint_fast16_t x, uint_fast16_t byte);
 extern enum AsmError asm_emit_se_vx_vy(uint_fast16_t x, uint_fast16_t y);
@@ -63,7 +63,7 @@ extern enum AsmError asm_emit_subn_vx_vy(uint_fast16_t x, uint_fast16_t y);
 extern enum AsmError asm_emit_shl_vx(uint_fast16_t x);
 extern enum AsmError asm_emit_sne_vx_vy(uint_fast16_t x, uint_fast16_t y);
 extern enum AsmError asm_emit_ld_i_addr(uint_fast16_t addr);
-extern enum AsmError asm_emit_ld_i_label(char *label);
+extern enum AsmError asm_emit_ld_i_label(const char *label);
 extern enum AsmError asm_emit_jp_v0_addr(uint_fast16_t addr);
 extern enum AsmError asm_emit_jp_v0_label(char *label);
 extern enum AsmError asm_emit_rnd_vx_byte(uint_fast16_t x, uint_fast16_t byte);

@@ -16,7 +16,7 @@ string_hash(const char *str) {
 #define TABLE_OF_LABELS_SIZE (ASM_MAX_LABELS * 5 / 4 + 1)
 struct LabelAddress {
     uint_fast32_t   hash;
-    char            *label;
+    const char      *label;
     uint_fast16_t   address;
     bool            undefined;
 };
@@ -30,7 +30,7 @@ asm_get_number_of_undefined_labels(void) {
 }
 
 static struct LabelAddress *
-lookup_label(char *label) {
+lookup_label(const char *label) {
     uint_fast32_t hash = string_hash(label);
     size_t n = TABLE_OF_LABELS_SIZE;
     for (size_t i = hash % n; labels[i].label; i = (i + 1) % n) {
@@ -46,7 +46,7 @@ add_label(struct LabelAddress new_label_address) {
     if (number_of_labels >= ASM_MAX_LABELS) {
         return ASM_TOO_MANY_LABELS;
     }
-    char *label = new_label_address.label;
+    const char *label = new_label_address.label;
     uint_fast32_t hash = new_label_address.hash = string_hash(label);
     size_t i, n = TABLE_OF_LABELS_SIZE;
     for (i = hash % n; labels[i].label; i = (i + 1) % n) {
@@ -95,7 +95,7 @@ asm_init(void) {
 }
 
 extern enum AsmError
-asm_emit_label(char *label) {
+asm_emit_label(const char *label) {
     struct LabelAddress *la = lookup_label(label);
     if (la) {
         if (!la->undefined) return ASM_SECOND_DEFINITION;
@@ -141,7 +141,7 @@ emit_hnnni(uint_fast16_t h, uint_fast16_t nnn) {
 }
 
 static enum AsmError
-emit_hnnnl(uint_fast16_t h, char *label) {
+emit_hnnnl(uint_fast16_t h, const char *label) {
     struct LabelAddress *la = lookup_label(label);
     if (!la) { /* If label was neither defined nor used before. */
         /* Save instruction pointer in the table of labels to fill address when
@@ -205,7 +205,7 @@ asm_emit_jp_addr(uint_fast16_t addr) {
 }
 
 extern enum AsmError
-asm_emit_jp_label(char *label) {
+asm_emit_jp_label(const char *label) {
     return emit_hnnnl(0x1, label);
 }
 
@@ -215,7 +215,7 @@ asm_emit_call_addr(uint_fast16_t addr) {
 }
 
 extern enum AsmError
-asm_emit_call_label(char *label) {
+asm_emit_call_label(const char *label) {
     return emit_hnnnl(0x2, label);
 }
 
@@ -300,7 +300,7 @@ asm_emit_ld_i_addr(uint_fast16_t addr) {
 }
 
 extern enum AsmError
-asm_emit_ld_i_label(char *label) {
+asm_emit_ld_i_label(const char *label) {
     return emit_hnnnl(0xA, label);
 }
 
@@ -310,7 +310,7 @@ asm_emit_jp_v0_addr(uint_fast16_t addr) {
 }
 
 extern enum AsmError
-asm_emit_jp_v0_label(char *label) {
+asm_emit_jp_v0_label(const char *label) {
     return emit_hnnnl(0xB, label);
 }
 
