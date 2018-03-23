@@ -65,7 +65,7 @@ extern enum AsmError asm_emit_sne_vx_vy(uint_fast16_t x, uint_fast16_t y);
 extern enum AsmError asm_emit_ld_i_addr(uint_fast16_t addr);
 extern enum AsmError asm_emit_ld_i_label(const char *label);
 extern enum AsmError asm_emit_jp_v0_addr(uint_fast16_t addr);
-extern enum AsmError asm_emit_jp_v0_label(char *label);
+extern enum AsmError asm_emit_jp_v0_label(const char *label);
 extern enum AsmError asm_emit_rnd_vx_byte(uint_fast16_t x, uint_fast16_t byte);
 extern enum AsmError asm_emit_drw_vx_vy_nibble(uint_fast16_t x, uint_fast16_t y,
                                                uint_fast16_t nibble);
